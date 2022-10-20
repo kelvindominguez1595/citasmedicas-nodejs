@@ -1,12 +1,12 @@
 import express from "express";
-import categoriesRouter from "../routers/categoriesRouter";
-import gendersRouter from "../routers/gendersRouter";
-import paymentsRouter from "../routers/paymentsRouter";
-import reservationsRouter from "../routers/reservationsRouter";
-import rolesRouter from "../routers/rolesRouter";
-import statusRouter from "../routers/statusRouter";
-import userRouter from "../routers/userRouter";
-import MongoDbConnection from "./db";
+import categoriesRouter from "../routers/categoriesRouter.js";
+import gendersRouter from "../routers/gendersRouter.js";
+import paymentsRouter from "../routers/paymentsRouter.js";
+import reservationsRouter from "../routers/reservationsRouter.js";
+import rolesRouter from "../routers/rolesRouter.js";
+import statusRouter from "../routers/statusRouter.js";
+import userRouter from "../routers/userRouter.js";
+import MongoDbConnection from "./db.js";
 
 class Server {
     constructor() {
