@@ -4,7 +4,6 @@ import {
     gendersRouter,
     paymentsRouter,
     reservationsRouter,
-    rolesRouter,
     statusRouter,
     userRouter
 } from "../routers/index.js";
@@ -20,7 +19,6 @@ class Server {
             genders: '/api/genders',
             payments: '/api/payments',
             reservations: '/api/reservations',
-            roles: '/api/roles',
             status: '/api/status',
             users: '/api/users'
         }
@@ -43,7 +41,6 @@ class Server {
         this.app.use(this.paths.genders, gendersRouter);
         this.app.use(this.paths.payments, paymentsRouter);
         this.app.use(this.paths.reservations, reservationsRouter);
-        this.app.use(this.paths.roles, rolesRouter);
         this.app.use(this.paths.status, statusRouter);
         this.app.use(this.paths.users, userRouter);
     }

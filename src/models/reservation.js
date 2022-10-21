@@ -16,8 +16,8 @@ const ReservationSchema = Schema({
         required: [true, 'The field date is required']
     },
     time: {
-        type: Number,
-        default: true
+        type: String,
+        required: [true, 'The field date is required']
     },
     user: {
         type: Schema.Types.ObjectId,

@@ -50,9 +50,5 @@ const UserSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Categorie',
     },
-    created_at: {
-        type: Date,
-        required: [true, 'The field created at is required']
-    }
-});
+}, { timestamps: true });
 export default model('User', UserSchema);

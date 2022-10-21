@@ -1,10 +1,17 @@
 import bcryptjs from 'bcryptjs';
 import { Categorie, User, Gender, Statu, Payment } from '../models/index.js';
 
-const encriptPassword = async (password) => {
+const encriptarPassword = async (password) => {
     const salt = bcryptjs.genSaltSync();
     const encript = bcryptjs.hashSync(password, salt);
     return encript;
+}
+/** Verificar si el correo existe */
+const validarEmailExiste = async (email = '') => {
+    const existEmail = await User.findOne({ email });
+    if (existEmail) {
+        throw new Error(`El correo ya existe: ${email}`);
+    }
 }
 
 /** Para validar categoria existente */
@@ -41,10 +48,11 @@ const existCategoriaIDEnUsuario = async (id) => {
 }
 
 export {
-    encriptPassword,
+    encriptarPassword,
     existCategoriaID,
     existCategoriaIDEnUsuario,
     existGenerosID,
     existEstadosID,
-    existPagosID
+    existPagosID,
+    validarEmailExiste
 }
