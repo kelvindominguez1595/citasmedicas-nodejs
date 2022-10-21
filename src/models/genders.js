@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 const GenderSchema = Schema({
-    gender: {
+    name: {
         type: String,
         required: [true, 'gender is required']
     }

@@ -27,7 +27,7 @@ const ReservationSchema = Schema({
         type: String,
     },
     price: {
-        type: Double,
+        type: Number,
     },
     payment: {
         type: Schema.Types.ObjectId,

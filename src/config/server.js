@@ -1,11 +1,13 @@
 import express from "express";
-import categoriesRouter from "../routers/categoriesRouter.js";
-import gendersRouter from "../routers/gendersRouter.js";
-import paymentsRouter from "../routers/paymentsRouter.js";
-import reservationsRouter from "../routers/reservationsRouter.js";
-import rolesRouter from "../routers/rolesRouter.js";
-import statusRouter from "../routers/statusRouter.js";
-import userRouter from "../routers/userRouter.js";
+import {
+    categoriesRouter,
+    gendersRouter,
+    paymentsRouter,
+    reservationsRouter,
+    rolesRouter,
+    statusRouter,
+    userRouter
+} from "../routers/index.js";
 import MongoDbConnection from "./db.js";
 
 class Server {
