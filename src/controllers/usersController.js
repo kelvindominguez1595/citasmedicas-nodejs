@@ -3,46 +3,38 @@ import { encriptarPassword } from '../helpers/db-validators.js';
 import { User } from '../models/index.js';
 const usersController = {
     usersGet: (async (req = request, res = response) => {
-        res.json({ message: 'Response Get' });
+        const usuario = await User.find()
+            .populate('categorie', 'name')
+            .populate('gender', 'name');
+        res.json({ message: 'Success', usuario });
+    }),
+    usersIDGet: (async (req = request, res = response) => {
+        const { id } = req.params;
+        const usuario = await User.findById(id);
+        res.json({ message: 'Success', usuario });
     }),
     usersPost: (async (req = request, res = response) => {
-
-        const {
-            name,
-            lastname,
-            email,
-            password,
-            image,
-            birthday,
-            address,
-            phone,
-            rol,
-            gender,
-            categorie
-        } = req.body;
-        const usuario = new User({
-            name,
-            lastname,
-            email,
-            password,
-            image,
-            birthday,
-            address,
-            phone,
-            rol,
-            gender,
-            categorie
-        });
+        const { password, ...otros } = req.body;
+        const usuario = new User(otros);
         const passEncrypt = await encriptarPassword(password);
         usuario.password = passEncrypt;
         await usuario.save();
         res.json({ message: 'Nuevo usuario creado correctamente' });
     }),
     usersPut: (async (req = request, res = response) => {
-        res.json({ message: 'Response Put' });
+        const { id } = req.params;
+        const { password, ...otros } = req.body;
+        if (password) {
+            const passEncrypt = await encriptarPassword(password);
+            otros.password = passEncrypt;
+        }
+        const user = await User.findByIdAndUpdate(id, otros);
+        res.json({ message: 'Actualizo usuario correctamente', user });
     }),
     usersDelete: (async (req = request, res = response) => {
-        res.json({ message: 'Response Delete' });
+        const { id } = req.params;
+        const response = await User.findByIdAndDelete(id);
+        res.json({ message: 'Usuario Borrado Correctamente', response });
     })
 }
 

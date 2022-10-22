@@ -1,5 +1,5 @@
 import bcryptjs from 'bcryptjs';
-import { Categorie, User, Gender, Statu, Payment } from '../models/index.js';
+import { Categorie, User, Gender, Statu, Payment, Role } from '../models/index.js';
 
 const encriptarPassword = async (password) => {
     const salt = bcryptjs.genSaltSync();
@@ -13,7 +13,6 @@ const validarEmailExiste = async (email = '') => {
         throw new Error(`El correo ya existe: ${email}`);
     }
 }
-
 /** Para validar categoria existente */
 const existCategoriaID = async (name) => {
     const data = await Categorie.findOne({ name });
@@ -46,6 +45,21 @@ const existCategoriaIDEnUsuario = async (id) => {
         throw new Error(`Esta categoría esta asignada a un usuario, asi que no se puede borrar`);
     }
 }
+// para validar si existe el usuario a actualizar
+const existeElUsuario = async (id) => {
+    const existuser = await User.findById(id);
+    if (!existuser) {
+        throw new Error(`No existe el usuario con el UID:${id}`);
+    }
+}
+
+// validos si el rol existe
+const existeElRol = async (rol = '') => {
+    const existRol = await Role.findOne({ rol })
+    if (!existRol) {
+        throw new Error(`Rol no existe!: ${rol}`)
+    }
+}
 
 export {
     encriptarPassword,
@@ -54,5 +68,7 @@ export {
     existGenerosID,
     existEstadosID,
     existPagosID,
-    validarEmailExiste
+    validarEmailExiste,
+    existeElUsuario,
+    existeElRol
 }

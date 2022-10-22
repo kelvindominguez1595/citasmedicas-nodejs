@@ -1,5 +1,5 @@
-import { Double } from "bson";
 import { Schema, model } from "mongoose";
+
 const ReservationSchema = Schema({
     title: {
         type: String,
@@ -12,7 +12,7 @@ const ReservationSchema = Schema({
         type: String,
     },
     date: {
-        type: Date,
+        type: String,
         required: [true, 'The field date is required']
     },
     time: {
@@ -20,6 +20,10 @@ const ReservationSchema = Schema({
         required: [true, 'The field date is required']
     },
     user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    paciente: {
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
@@ -33,9 +37,5 @@ const ReservationSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Payment',
     },
-    created_at: {
-        type: Date,
-        required: [true, 'The field created at is required']
-    }
-});
+}, { timestamps: true });
 export default model('Reservation', ReservationSchema);
