@@ -9,13 +9,22 @@ const reservationsController = {
         res.json({ message: 'Success', reservaciones });
     }),
     reservationsPost: (async (req = request, res = response) => {
-        const body = req.body;
-        try {
-            const reservaciones = new Reservation(body);
-            await reservaciones.save();
-            res.status(200).json({ message: 'Nueva reservación creada correctame' });
-        } catch (error) {
-            res.status(401).json({ message: 'Ocurrio un problema' });
+        const { date, time, ...otros } = req.body;
+        const existeReservacion = await Reservation.findOne({ date, time });
+        if (existeReservacion) {
+            res.status(401).json({ message: `La feacha ${date} y hora ${time} ya estan registradas` });
+        } else {
+            try {
+                otros.date = date;
+                otros.time = time;
+                const reservaciones = new Reservation(otros);
+                await reservaciones.save();
+                res.status(200).json({ message: 'Nueva reservación creada correctame' });
+            } catch (error) {
+                console.log(error);
+                res.status(401).json({ message: 'Ocurrio un problema' });
+            }
+
         }
     }),
     reservationsPut: (async (req = request, res = response) => {

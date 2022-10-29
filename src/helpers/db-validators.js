@@ -1,5 +1,13 @@
 import bcryptjs from 'bcryptjs';
-import { Categorie, User, Gender, Statu, Payment, Role } from '../models/index.js';
+import {
+    Categorie,
+    User,
+    Gender,
+    Statu,
+    Payment,
+    Role,
+    Reservation
+} from '../models/index.js';
 
 const encriptarPassword = async (password) => {
     const salt = bcryptjs.genSaltSync();

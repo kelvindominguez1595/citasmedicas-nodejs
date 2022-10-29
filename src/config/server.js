@@ -1,4 +1,6 @@
 import express from "express";
+import cors from "cors";
+
 import {
     categoriesRouter,
     gendersRouter,
@@ -7,6 +9,7 @@ import {
     statusRouter,
     userRouter
 } from "../routers/index.js";
+
 import MongoDbConnection from "./db.js";
 
 class Server {
@@ -33,6 +36,7 @@ class Server {
     }
 
     middleware() {
+        this.app.use(cors());
         this.app.use(express.json());
     }
 

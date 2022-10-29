@@ -25,9 +25,9 @@ const categoriesController = {
     }),
     categoriesPut: (async (req = request, res = response) => {
         const { id } = req.params;
-        const { ...name } = req.body;
+        const body = req.body;
         try {
-            await Categorie.findByIdAndUpdate(id, name);
+            await Categorie.findByIdAndUpdate(id, body);
             res.json({ message: 'Actualizado correctamente' });
         } catch (error) {
             res.status(400).json({ message: 'Ocurrio un error!!' });
