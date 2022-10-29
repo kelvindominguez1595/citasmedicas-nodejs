@@ -6,6 +6,7 @@ import validateInputs from "../middlewares/validations-inputs.js";
 const reservationsRouter = Router();
 
 reservationsRouter.get('/', reservationsController.reservationsGet);
+reservationsRouter.get('/pacientesdoctor/:id', reservationsController.reservationsGetDoctor);
 reservationsRouter.post('/', [
     check('title', 'El titulo es obligatorio').not().isEmpty(),
     check('date', 'la fecha es obligatoria').not().isEmpty(),

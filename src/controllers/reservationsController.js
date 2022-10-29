@@ -8,6 +8,14 @@ const reservationsController = {
             .populate('paciente', 'name');
         res.json({ message: 'Success', reservaciones });
     }),
+    reservationsGetDoctor: (async (req = request, res = response) => {
+        const { id } = req.params
+        const reservaciones = await Reservation.find({ user: id })
+            .populate('user', ['name', 'lastname'])
+            .populate('paciente', 'name');
+        const cantidadPacientes = reservaciones.length;
+        res.json({ message: 'Success', reservaciones, cantidadPacientes });
+    }),
     reservationsPost: (async (req = request, res = response) => {
         const { date, time, ...otros } = req.body;
         const existeReservacion = await Reservation.findOne({ date, time });
