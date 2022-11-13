@@ -4,16 +4,21 @@ import { check } from "express-validator";
 import usersController from "../controllers/usersController.js";
 import { existeElRol, existeElUsuario, validarEmailExiste } from "../helpers/db-validators.js";
 import validateInputs from "../middlewares/validations-inputs.js";
+import validationsJWT from "../middlewares/validations-jwt.js";
 
 const userRouter = Router();
 
-userRouter.get('/', usersController.usersGet);
+userRouter.get('/', [
+    validationsJWT
+], usersController.usersGet);
 
 userRouter.get('/usuarioid/:id', [
+    validationsJWT,
     check('id', 'Is no valid ID').isMongoId(),
 ], usersController.usersIDGet);
 
 userRouter.post('/', [
+    validationsJWT,
     check('name', 'el nombre es requerido').notEmpty(),
     check('lastname', 'el apellido es requerido').notEmpty(),
     check('password', 'Contraseña es requerida').notEmpty(),
@@ -23,12 +28,14 @@ userRouter.post('/', [
     validateInputs
 ], usersController.usersPost);
 userRouter.put('/:id', [
+    validationsJWT,
     check('id', 'Is no valid ID').isMongoId(),
     check('id').custom(existeElUsuario),
     check('rol').custom(existeElRol),
     validateInputs
 ], usersController.usersPut);
 userRouter.delete('/:id', [
+    validationsJWT,
     check('id', 'Is no valid ID').isMongoId(),
 ], usersController.usersDelete);
 

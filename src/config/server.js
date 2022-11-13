@@ -7,7 +7,8 @@ import {
     paymentsRouter,
     reservationsRouter,
     statusRouter,
-    userRouter
+    userRouter,
+    authRouter
 } from "../routers/index.js";
 
 import MongoDbConnection from "./db.js";
@@ -18,6 +19,7 @@ class Server {
         this.port = process.env.PORT;
 
         this.paths = {
+            auth: '/api/auth/login',
             categories: '/api/categories',
             genders: '/api/genders',
             payments: '/api/payments',
@@ -41,6 +43,7 @@ class Server {
     }
 
     routers() {
+        this.app.use(this.paths.auth, authRouter);
         this.app.use(this.paths.categories, categoriesRouter);
         this.app.use(this.paths.genders, gendersRouter);
         this.app.use(this.paths.payments, paymentsRouter);

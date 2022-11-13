@@ -2,12 +2,16 @@ import { Router } from "express";
 import { check } from "express-validator";
 import reservationsController from "../controllers/reservationsController.js";
 import validateInputs from "../middlewares/validations-inputs.js";
+import validationsJWT from "../middlewares/validations-jwt.js";
 
 const reservationsRouter = Router();
 
-reservationsRouter.get('/', reservationsController.reservationsGet);
+reservationsRouter.get('/', [
+    validationsJWT
+], reservationsController.reservationsGet);
 reservationsRouter.get('/pacientesdoctor/:id', reservationsController.reservationsGetDoctor);
 reservationsRouter.post('/', [
+    validationsJWT,
     check('title', 'El titulo es obligatorio').not().isEmpty(),
     check('date', 'la fecha es obligatoria').not().isEmpty(),
     check('time', 'la fecha es obligatoria').not().isEmpty(),
@@ -16,6 +20,7 @@ reservationsRouter.post('/', [
     validateInputs
 ], reservationsController.reservationsPost);
 reservationsRouter.put('/:id', [
+    validationsJWT,
     check('id', 'UID no es valido').isMongoId(),
     check('title', 'El titulo es obligatorio').not().isEmpty(),
     check('date', 'la fecha es obligatoria').not().isEmpty(),
@@ -25,6 +30,7 @@ reservationsRouter.put('/:id', [
     validateInputs
 ], reservationsController.reservationsPut);
 reservationsRouter.delete('/:id', [
+    validationsJWT,
     check('id', 'UID no es valido').isMongoId(),
     validateInputs
 ], reservationsController.reservationsDelete);

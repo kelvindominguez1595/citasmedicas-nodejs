@@ -5,9 +5,9 @@ import { User } from '../models/index.js';
 
 const validationsJWT = async (req = request, res = response, next) => {
     // creamos nuestro header propio
-    const token = req.header('token-secret');
+    const token = req.header('token-app');
     if (!token) {
-        return res.status(401).json({ message: 'No hay token!' })
+        return res.status(401).json({ message: 'Oops! esta tratando de utilizar esta API REST sin autenficacion.' })
     }
 
     try {
@@ -24,7 +24,7 @@ const validationsJWT = async (req = request, res = response, next) => {
         req.uid = uid;
         next();
     } catch (error) {
-        res.status(401).json({ message: 'El token no existe!' });
+        res.status(401).json({ message: 'Oops! esta tratando de utilizar esta API REST sin autenficacion.' });
     }
 }
 
