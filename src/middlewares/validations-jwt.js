@@ -5,7 +5,7 @@ import { User } from '../models/index.js';
 
 const validationsJWT = async (req = request, res = response, next) => {
     // creamos nuestro header propio
-    const token = req.header('token-app');
+    const token = req.header('tokenauthentication');
     if (!token) {
         return res.status(401).json({ message: 'Oops! esta tratando de utilizar esta API REST sin autenficacion.' })
     }
