@@ -8,6 +8,11 @@ const usersController = {
             .populate('gender', 'name');
         res.json({ message: 'Success', usuario });
     }),
+    userWhere: (async (req = request, res, response) => {
+        const { rol } = req.params;
+        const usuario = await User.findOne({ rol });
+        res.json({ usuario });
+    }),
     usersIDGet: (async (req = request, res = response) => {
         const { id } = req.params;
         const usuario = await User.findById(id);

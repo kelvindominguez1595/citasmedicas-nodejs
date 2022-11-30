@@ -17,6 +17,11 @@ userRouter.get('/usuarioid/:id', [
     check('id', 'Is no valid ID').isMongoId(),
 ], usersController.usersIDGet);
 
+userRouter.get('/pacientes/:rol', [
+    validationsJWT,
+    check('rol', 'rol es requerido').notEmpty(),
+], usersController.userWhere);
+
 userRouter.post('/', [
     validationsJWT,
     check('name', 'el nombre es requerido').notEmpty(),
