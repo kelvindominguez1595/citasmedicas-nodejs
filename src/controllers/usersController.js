@@ -10,7 +10,7 @@ const usersController = {
     }),
     userWhere: (async (req = request, res, response) => {
         const { rol } = req.params;
-        const usuario = await User.findOne({ rol });
+        const usuario = await User.find({ rol });
         res.json({ usuario });
     }),
     usersIDGet: (async (req = request, res = response) => {
