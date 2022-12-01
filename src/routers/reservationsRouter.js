@@ -9,7 +9,12 @@ const reservationsRouter = Router();
 reservationsRouter.get('/', [
     validationsJWT
 ], reservationsController.reservationsGet);
+
+reservationsRouter.get('/horadeconsultas', [
+    validationsJWT
+], reservationsController.horasConsultas);
 reservationsRouter.get('/pacientesdoctor/:id', reservationsController.reservationsGetDoctor);
+reservationsRouter.get('/reservationuid/:id', reservationsController.reservationsUIDGet);
 reservationsRouter.post('/', [
     validationsJWT,
     check('title', 'El titulo es obligatorio').not().isEmpty(),
