@@ -14,7 +14,7 @@ gendersRouter.get('/generosid/:id', [
     validationsJWT,
     check('id', 'El ID no es valido!').isMongoId(),
     validateInputs
-], gendersController.gendersGet);
+], gendersController.gendersIDGet);
 gendersRouter.post('/', [
     validationsJWT,
     check('name', 'Nombre del genero es obligatorio').not().isEmpty(),
